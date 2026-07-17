@@ -24,7 +24,43 @@ float buttonstate(){
     digitalWrite(13,LOW);
   }
     previousbuttonstate=currentbuttonstate;
-    return mode*0.25;}  
+    return mode*0.25;} 
+    
+int audio_and_displayheight(int coef){
+  int peak=0;
+  int sum=0;
+  for(int r=0;r<60;r++){// peak and avg over 60 interval
+    int ar=analogRead(A0);
+    int currentpeak=abs(ar-512);
+    sum+=currentpeak;
+    if (currentpeak>peak){
+      peak=currentpeak;
+    }
+  }
+  int avg=sum/60;
+  currentheight=((coef*peak)+(1-coef)*(avg))/8;
+  if( currentheight<previousheight){
+   displayheight=previousheight-(previousheight-currentheight)/5;
+   }
+  else if (previousheight<currentheight){
+    displayheight=min(previousheight+(currentheight-previousheight)/3,64);
+  }
+  else {
+   displayheight=currentheight;
+  }
+  return displayheight;
+}
+
+void display(int displayheight){
+  for (int i=0;i<displayheight;i++){
+    leds[i]=CHSV(95-i*1.5,255,255);
+  }
+  for (int i=displayheight;i<NUMofLEDS;i++){
+    leds[i]=CRGB::Black;
+  }
+  FastLED.show();
+}
+  
 
 void setup() {
   FastLED.addLeds<SM16703,ledPin,GRB>(leds,NUMofLEDS).setCorrection(TypicalLEDStrip);
@@ -35,32 +71,7 @@ void setup() {
 }
 
 void loop() {
-  int peak=0;
-  int sum=0;
   float coef=buttonstate();
-  for(int r=0;r<60;r++){// peak and avg over 60 interval
-    int ar=analogRead(A0);
-    int currentpeak=abs(ar-512);
-    sum+=currentpeak;
-    if (currentpeak>peak){
-      peak=currentpeak;
-    }
-  }
-  currentheight=((coef*peak)+(1-coef)*(sum/60))/8;
-  if( currentheight<previousheight){
-   displayheight=previousheight-(previousheight-currentheight)/4;
-   }
-  else if (previousheight<currentheight){
-    displayheight=min(previousheight+(currentheight-previousheight)/3,63);
-  }
-  else {
-   displayheight=currentheight;
-  }
-  for (int i=0;i<displayheight;i++){
-    leds[i]=CHSV(95-i*1.5,255,255);
-  }
-  for (int i=displayheight;i<NUMofLEDS;i++){
-    leds[i]=CRGB::Black;
-  }
-  FastLED.show();
+  displayheight=audio_and_displayheight(coef);
+  display(displayheight);
 }
