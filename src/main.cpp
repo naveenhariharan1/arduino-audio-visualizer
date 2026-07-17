@@ -5,6 +5,7 @@
 CRGB leds[NUMofLEDS];
 int currentheight=0;
 int previousheight=0;
+int displayheight=0;
 int currentbuttonstate=HIGH;
 int previousbuttonstate=HIGH;
 int mode=0;
@@ -13,7 +14,7 @@ float buttonstate(){
   currentbuttonstate=digitalRead(buttonPin);
   if (currentbuttonstate==LOW && previousbuttonstate==HIGH){
     mode++;
-    if (mode>10){
+    if (mode>5){
       mode=0;
     }}
   if (mode==0){
@@ -23,7 +24,7 @@ float buttonstate(){
     digitalWrite(13,LOW);
   }
     previousbuttonstate=currentbuttonstate;
-    return mode/10.0;}  
+    return mode*0.25;}  
 
 void setup() {
   FastLED.addLeds<SM16703,ledPin,GRB>(leds,NUMofLEDS).setCorrection(TypicalLEDStrip);
@@ -33,11 +34,11 @@ void setup() {
   pinMode(13,OUTPUT);
 }
 
-void loop() {// peak over 15interval
+void loop() {
   int peak=0;
   int sum=0;
   float coef=buttonstate();
-  for(int r=0;r<60;r++){
+  for(int r=0;r<60;r++){// peak and avg over 60 interval
     int ar=analogRead(A0);
     int currentpeak=abs(ar-512);
     sum+=currentpeak;
@@ -47,18 +48,18 @@ void loop() {// peak over 15interval
   }
   currentheight=((coef*peak)+(1-coef)*(sum/60))/8;
   if( currentheight<previousheight){
-   previousheight=previousheight-1;
+   displayheight=previousheight-(previousheight-currentheight)/4;
    }
   else if (previousheight<currentheight){
-    previousheight=previousheight+2;
+    displayheight=min(previousheight+(currentheight-previousheight)/3,63);
   }
   else {
-   previousheight=currentheight;
+   displayheight=currentheight;
   }
-  for (int i=0;i<=previousheight;i++){
-    leds[i]=CHSV(96-i*1.5,255,255);
+  for (int i=0;i<displayheight;i++){
+    leds[i]=CHSV(95-i*1.5,255,255);
   }
-  for (int i=previousheight+1;i<NUMofLEDS;i++){
+  for (int i=displayheight;i<NUMofLEDS;i++){
     leds[i]=CRGB::Black;
   }
   FastLED.show();
