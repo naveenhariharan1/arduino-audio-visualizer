@@ -26,7 +26,7 @@ float buttonstate(){
     previousbuttonstate=currentbuttonstate;
     return mode*0.25;} 
     
-int audio_and_displayheight(int coef){
+int audio_and_displayheight(float coef){
   int peak=0;
   int sum=0;
   for(int r=0;r<60;r++){// peak and avg over 60 interval
@@ -48,6 +48,7 @@ int audio_and_displayheight(int coef){
   else {
    displayheight=currentheight;
   }
+  previousheight=displayheight;
   return displayheight;
 }
 
