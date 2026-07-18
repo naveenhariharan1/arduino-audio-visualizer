@@ -19,7 +19,7 @@ float buttonstate(){
   currentbuttonstate=digitalRead(buttonPin);
   if (currentbuttonstate==LOW && previousbuttonstate==HIGH){
     mode++;
-    if (mode>5){
+    if (mode>4){
       mode=0;
     }}
   if (mode==0){
@@ -29,7 +29,8 @@ float buttonstate(){
     digitalWrite(13,LOW);
   }
     previousbuttonstate=currentbuttonstate;
-    return mode*0.25;}
+    }
+  return mode*0.25;
    }
     
 int audio_and_displayheight(float coef){
@@ -44,13 +45,13 @@ int audio_and_displayheight(float coef){
     }
   }
   int avg=sum/45;
-  currentheight=((coef*peak)+(1-coef)*(avg))/8;
+  currentheight=min(((coef*peak)+(1-coef)*(avg))/8,63);
   if( currentheight<previousheight){
-   displayheight=previousheight-(previousheight-currentheight)/5;
+   displayheight=previousheight-1;
    }
   else if (previousheight<currentheight){   
     if (currentheight-previousheight>3){
-    displayheight=min(previousheight+(currentheight-previousheight)/3,63);}
+    displayheight=min(previousheight+3,63);}
     else{
       displayheight=currentheight;
     }
