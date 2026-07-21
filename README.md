@@ -26,7 +26,7 @@ Arduino based audio/music visualiser that uses FastLED library and MAX4466 micro
 
 ## How it Works
 
-Arduino constanly samples the analog signal from the microphone module through A0 and and finds peak amplitude and average over 45 cycles and changes the display height accordingly.It also has 5 modes by which you could change with the press of a button ,it would change the percentage of peak and average blending.
+Arduino constantly samples the analog signal from the microphone module through A0 and and finds peak amplitude and average over 45 cycles and changes the display height accordingly.It has 5 modes which you could change with the press of a button ,it would change the ratio of peak and average blending.
 1. Mode 0-100% average(indicated with led 13 ON).
 2. Mode 1-75% average and 25% peak.
 3. Mode 2-50% average and 50% peak.
@@ -41,10 +41,9 @@ Arduino constanly samples the analog signal from the microphone module through A
 
 ## Future Improvements
 
-1.Auto gain control
-2.Line level signal
-3.Different visualisation modes
-4.Music frequency analysis(FFT)
+1. Auto gain control
+2. Line level signal
+3. Different visualisation modes
+4. Music frequency analysis(FFT)
 
 
-##
