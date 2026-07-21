@@ -1,7 +1,7 @@
 # Arduino Audio Visualizer / Music Visualiser 
 
 ## Intro
-Arduino based audio/music visualiser that uses FastLED library.
+Arduino based audio/music visualiser that uses FastLED library and MAX4466 microphone module.
 
 ## Materials
 - Arduino Uno
@@ -24,4 +24,27 @@ Arduino based audio/music visualiser that uses FastLED library.
 ### circuit diagram
 ![alt text](https://github.com/naveenhariharan1/arduino-audio-visualizer/blob/main/images/circuit%20diagram.png 'circuit')
 
+## How it Works
 
+<p>Arduino constanly samples the analog signal from the microphone module through A0 and and finds peak amplitude and average over 45 cycles and changes the display height accordingly.It also has 5 modes by which you could change with the press of a button ,it would change the percentage of peak and average blending.</p>
+1.mode 0-100% average(indicated with led 13 ON)
+2.mode 1-75% average and 25% peak
+3.mode 2-50% average and 50% peak
+4.mode 3-25% average and 75% peak
+5.mode 4-100% peak
+
+## Installation
+1.Install the FastLED library.
+2.Open `src/main.cpp` in the Arduino IDE.
+3.Select the correct board and COM port.
+4.Upload the code.
+
+## Future Improvements
+
+1.Auto gain control
+2.Line level signal
+3.Different visualisation modes
+4.Music frequency analysis(FFT)
+
+
+##
