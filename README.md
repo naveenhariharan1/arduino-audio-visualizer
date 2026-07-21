@@ -21,6 +21,6 @@ Arduino based audio/music visualiser that uses FastLED library.
 | Audio Input | Arduino A0 |
 | External Power (+5V) | Arduino 5V and LED Strip +5V |
 | External Power (GND) | Arduino GND and LED Strip GND |
-### circuit 
+### circuit diagram
 
 
