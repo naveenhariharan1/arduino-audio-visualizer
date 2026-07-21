@@ -22,5 +22,6 @@ Arduino based audio/music visualiser that uses FastLED library.
 | External Power (+5V) | Arduino 5V and LED Strip +5V |
 | External Power (GND) | Arduino GND and LED Strip GND |
 ### circuit diagram
+![alt text](https://github.com/naveenhariharan1/arduino-audio-visualizer/blob/main/images/circuit%20diagram.png 'circuit')
 
 
