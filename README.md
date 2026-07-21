@@ -13,6 +13,14 @@ Arduino based audio/music visualiser that uses FastLED library.
 ## Code 
 -[open](https://github.com/naveenhariharan1/arduino-audio-visualizer/blob/main/src/main.cpp) this on your arduino code editor.
 
-## Pins
+## Connections
+| Connection | Connected To |
+|------------|--------------|
+| LED Data | Arduino D6 → LED Strip DIN |
+| Push Button | Arduino D2 |
+| Audio Input | Arduino A0 |
+| External Power (+5V) | Arduino 5V and LED Strip +5V |
+| External Power (GND) | Arduino GND and LED Strip GND |
+### circuit 
 
 
